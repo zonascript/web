@@ -212,7 +212,7 @@
             });
 
             $('#modal-sign-up form').submit(function (e) {
-                var form = this, inputs = $("input,select,button", form), formData = $(this).serialize();
+                var form = $(this), inputs = $("input,select,button", form), formData = $(this).serialize();
                 e.preventDefault();
 
                 inputs.attr("disabled", "disabled");
@@ -220,7 +220,7 @@
                 $('.validation-error', form).text('');
                 $('.other-error').hide();
 
-                $.post("/token/ico", formData).then(function (e) {
+                $.post(form.attr('action'), formData).then(function (e) {
                     location.reload();
                 }).catch(function (response) {
                     if(response.status === 422) {
