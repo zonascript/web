@@ -27,7 +27,7 @@
         <div class="navbar" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <a href="{{ route('home') }}" class="navbar-logo navbar-brand">
+                    <a href="{{ route_lang('home') }}" class="navbar-logo navbar-brand">
                         <img class="logo" src="{{ asset('bitdegree-logo.png') }}" alt="BitDegree">
                     </a>
 
@@ -38,8 +38,8 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse navbar-container">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ route('home') }}#what-are-we" data-toggle="collapse" data-target=".navbar-collapse.in">@lang('navigation.what-is')</a></li>
-                        <li><a href="{{ route('home') }}#team" data-toggle="collapse" data-target=".navbar-collapse.in">@lang('navigation.people')</a></li>
+                        <li><a href="{{ route_lang('home') }}#what-are-we" data-toggle="collapse" data-target=".navbar-collapse.in">@lang('navigation.what-is')</a></li>
+                        <li><a href="{{ route_lang('home') }}#team" data-toggle="collapse" data-target=".navbar-collapse.in">@lang('navigation.people')</a></li>
                         <li><a href="/bitdegree-ico-one-pager.pdf" target="_blank">@lang('navigation.one-pager')</a></li>
                         <!--<li><a href="#token-sale-terms" data-toggle="collapse" data-target=".navbar-collapse.in">@lang('navigation.ico')</a></li>-->
                         <!--<li><a href="#faqs" data-toggle="collapse" data-target=".navbar-collapse.in">@lang('navigation.faq')</a></li>-->

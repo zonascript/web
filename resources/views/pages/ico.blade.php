@@ -132,7 +132,7 @@
                     <a id="confirm-agreements" class="btn btn-success disabled">You must agree with all points in order to continue</a>
                 </div>
                 <div class="modal-body" id="modal-sign-up" style="display: none">
-                    <form action="{{ route('ico') }}" method="post">
+                    <form action="{{ route_lang('ico') }}" method="post">
                         <div class="alert alert-danger other-error" style="display: none;">An unknown error occurred. Please make sure you entered correct data and try again.</div>
                         <div class="row">
                             <div class="col-md-6">
