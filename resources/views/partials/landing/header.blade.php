@@ -23,9 +23,9 @@
         </nav>
     @endif
 
-    <div class="container header-content">
+    <div class="container-fluid header-content">
         <div class="navbar" role="navigation">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="navbar-header">
                     <a href="{{ route_lang('home') }}" class="navbar-logo navbar-brand">
                         <img class="logo" src="{{ asset('bitdegree-logo.png') }}" alt="BitDegree">
