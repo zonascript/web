@@ -8,9 +8,9 @@ class LanguageMiddleware
 {
     private $fallbackLanguage = 'en';
     private $supportedLanguages = [
-        'en' => 'English',
-        'ch' => 'Chinese',
-        'ru' => 'Russian',
+        'en' => 'EN',
+        'ch' => 'CH',
+        'ru' => 'RU',
     ];
 
     /**

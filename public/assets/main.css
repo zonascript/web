@@ -1168,6 +1168,28 @@ ul.cta-menu li .navbar-cta:hover{
     display: block;
 }
 
+.lang-menu button.dropdown-toggle {
+    padding: 12px 16px;
+    font-size: 16px;
+    color: #FFF;
+    text-align: center;
+    font-family: 'Work Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 1px;
+    border-left: 1px solid #fff;
+    border-top:0;
+    border-bottom:0;
+    border-right:0;
+    background: none;
+}
+
+.lang-menu {
+    float: right !important;
+    position: absolute;
+    right: 0;
+}
+
 @media (min-width:400px) {
     .navbar-logo {
         /* padding: 25px 10px; */
