@@ -8,9 +8,9 @@ class LanguageMiddleware
 {
     private $fallbackLanguage = 'en';
     private $supportedLanguages = [
-        'en',
-        'ch',
-        'ru',
+        'en' => 'English',
+        'ch' => 'Chinese',
+        'ru' => 'Russian',
     ];
 
     /**
@@ -24,9 +24,15 @@ class LanguageMiddleware
     {
         $language = $request->segment(1);
 
-        if (!in_array($language, $this->supportedLanguages)) {
+        if (!isset($this->supportedLanguages[$language])) {
             abort(404);
         }
+
+        view()->share([
+            'languages' => $this->supportedLanguages,
+            'currentLanguage' => $language,
+            'defaultLanguage' => $this->fallbackLanguage,
+        ]);
 
         /**
          * @var \Illuminate\Translation\Translator $translator
