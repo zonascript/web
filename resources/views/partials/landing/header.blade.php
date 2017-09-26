@@ -23,7 +23,7 @@
         </nav>
     @endif
 
-    <div class="container-fluid header-content">
+    <div class="container header-content">
         <div class="navbar" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
