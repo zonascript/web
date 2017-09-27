@@ -219,7 +219,29 @@
         </div>
 
         <div id="js-advisory-board" class="row team-members">
-            <div class="col-xs-12 col-sm-3 col-sm-offset-2 wow fadeIn">
+
+            <div class="col-xs-12 col-sm-3 wow fadeIn">
+                <div class="team-member">
+                    <div class="team-member-image-holder">
+                        <img class="team-member-image" src="{{ asset('team/jeff-burton.png') }}" alt="Arnas Stuopelis">
+                    </div>
+                    <div class="team-member-data">
+                        <h3 class="title">Jeff <b>Burton</b></h3>
+                        <p>@lang('team.position_advisor_1')</p>
+                        <p>@lang('team.position_advisor_1_1')</p>
+                        <div class="handles">
+                            <a href="https://www.linkedin.com/in/jeff-burton-0672/" rel="nofollow" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></a>
+                        </div>
+
+                        <div class="team-member-desc">
+                            <p>@lang('team.description_advisor_1')</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-3 wow fadeIn">
                 <div class="team-member">
                     <div class="team-member-image-holder">
                         <img class="team-member-image" src="{{ asset('team/arnas-stuopelis.png') }}" alt="Arnas Stuopelis">
