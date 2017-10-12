@@ -11,6 +11,8 @@
 |
 */
 
+use App\Events\LogIn;
+
 $router->get('/', ['as' => 'root', function () use ($router) {
     return redirect(route_lang('home'));
 }]);
@@ -113,6 +115,99 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($
         ));
     }]);
 
+    $router->get('/token/signup', ['as' => 'signup', function (\Illuminate\Http\Request $request) {
+        if($request->has('email') && \App\Participant::where('email', '=', $request->get('email'))->first() instanceof \App\Participant) {
+            return redirect(route_lang('login', ['email' => $request->get('email')]));
+        }
+
+        return view('pages.signup', [
+            'email' => $request->get('email'),
+        ]);
+    }]);
+
+    $router->post('/token/signup', ['as' => 'signup-post', function (\Illuminate\Http\Request $request) {
+        $this->validate($request, [
+            'name' => 'string|min:2|max:60',
+            'email' => 'required|string|email|max:250|unique:participants,email',
+            'g-recaptcha-response' => 'required|recaptcha',
+        ]);
+
+        $participant = new \App\Participant();
+
+        $participant->email = $request->get('email');
+        $participant->ip = $request->ip();
+
+        $name = $request->get('name', ucwords(str_replace("."," ", explode("@", $request->get('email'))[0])));
+        $nameParts = explode(" ", $name);
+
+        $participant->first_name = $nameParts[0] ?? null;
+        $participant->last_name = count($nameParts) > 1 ? implode(" ", array_slice($nameParts, 1)) : null;
+
+        $participant->save();
+
+        $authToken = $participant->authTokens()->save(new \App\AuthToken);
+
+        event(new \App\Events\FreeTokenSignup($participant, $authToken, $request->segment(1)));
+
+        return response()->json(['success' => true,]);
+    }]);
+
+    $router->get('/token/login', ['as' => 'login', function (\Illuminate\Http\Request $request) {
+        return view('pages.login', [
+            'email' => $request->get('email'),
+        ]);
+    }]);
+
+    $router->post('/token/login', ['as' => 'login-post', function (\Illuminate\Http\Request $request) {
+        $this->validate($request, [
+            'email' => 'required|email|exists:participants,email',
+            'g-recaptcha-response' => 'required|recaptcha',
+        ]);
+
+        $participant = \App\Participant::where('email', '=', $request->get('email'))->first();
+
+        if($participant instanceof \App\Participant) {
+            $authToken = $participant->authTokens()->save(new \App\AuthToken);
+            event(new LogIn($participant, $authToken, $request->segment(1)));
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['error' => 'An account with the given email does not exist.'], 422);
+    }]);
+
+    $router->get('/token/logout', ['as' => 'logout', function (\Illuminate\Http\Request $request) {
+        $key = $request->cookie('auth');
+        if(!empty($key)){
+            \App\AuthToken::byKey($key)->delete();
+        }
+        return redirect(route_lang('home'))->withCookie(
+            new \Symfony\Component\HttpFoundation\Cookie('auth','',0)
+        );
+    }]);
+
+    $router->get('/token/auth/{participant}/{token}', ['as' => 'auth', function (\Illuminate\Http\Request $request, $language, $id, $key) {
+        $participant = \App\Participant::findOrFail($id);
+        $authToken = $participant->authTokens()->byKey($key)->first();
+
+        if($authToken instanceof \App\AuthToken && $authToken->isUsable()) {
+            if(!$participant->email_verified) {
+                $participant->email_verified = true;
+                $participant->save();
+            }
+
+            $authToken->use();
+
+            return redirect(route_lang('home'))->withCookie(
+                new \Symfony\Component\HttpFoundation\Cookie('auth', $authToken->key, \Carbon\Carbon::now()->addSeconds(\App\AuthToken::TTL), '/')
+            );
+        }
+
+        return view('pages.notification', [
+            'message' => "Sorry, this link is either invalid or it had already expired. Please try logging in again.",
+        ]);
+    }]);
+
     $router->post('/token/ico', ['as' => 'ico-post', function (\Illuminate\Http\Request $request) {
         $endDate = \Carbon\Carbon::createFromTimestamp(env('ICO_ENDS_AT'));
         $icoDataAvailable = (bool) env('ICO_INFO_AVAILABLE', false);
@@ -143,7 +238,7 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($
 
         $participant->first_name = $request->get('first-name');
         $participant->last_name = $request->get('last-name');
-        $participant->email = $request->get('email');
+        $participant->email = strtolower($request->get('email'));
         $participant->phone_number = $request->get('phone');
         $participant->country = $request->get('country');
         $participant->birthday = $request->get('birthday');

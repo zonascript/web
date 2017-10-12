@@ -48,7 +48,7 @@
 @include('partials.landing.header')
 @yield('content')
 @include('partials.landing.footer')
-@stack('body_scripts')
+@stack('body-scripts')
 </body>
 
 </html>

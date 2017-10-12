@@ -49,8 +49,8 @@
 
     @include('partials.landing.header')
     @yield('content')
-    @include('partials.landing.footer')
-    @stack('body_scripts')
+    @if(!isset($hideFooter) || !$hideFooter) @include('partials.landing.footer') @endif
+    @stack('body-scripts')
 
 </body>
 

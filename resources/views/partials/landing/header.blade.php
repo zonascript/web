@@ -74,10 +74,16 @@
                     </div>
                     <div class="communicate">
                         <div class="contact">
-                            <form action="https://xyz.us16.list-manage.com/subscribe/post?u=528cc9372b916077746636344&amp;id=f79db67249" method="post">
-                                <input class="suscribe-input" name="EMAIL" type="email" placeholder="@lang('subscribe.email_placeholder')" required>
-                                <input type="submit" class="submit" value="@lang('subscribe.button')" name="subscribe">
-                            </form>
+                            @if($authenticated)
+                                <p><strong>Welcome back, {{ $participant->first_name }}!</strong></p>
+                                <p>You have successfully signed up to receive <strong>1 EDU</strong> token for free!</p>
+                                <p><a href="{{ route_lang('logout') }}">Log out</a></p>
+                            @else
+                                <form action="{{ route_lang('signup') }}" method="get">
+                                    <input class="suscribe-input" name="email" type="email" placeholder="Enter your email" required>
+                                    <button type="submit" class="submit">GET FREE TOKENS</button>
+                                </form>
+                            @endif
                             <div class="contact-icons buttons">
                                 <a class="contact-icon" href="https://t.me/joinchat/GIngsQrKak9hN8h4xwN2Kg" rel="nofollow" target="_blank"><img src="{{ asset('telegram-logo.png') }}" alt="Telegram"></a>
                                 <a class="contact-icon" href="https://twitter.com/bitdegree_org" rel="nofollow" target="_blank"><img src="{{ asset('twitter-logo.png') }}" alt="Twitter"></a>
