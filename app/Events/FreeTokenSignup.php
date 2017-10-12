@@ -37,6 +37,8 @@ class FreeTokenSignup extends Event implements Mailable
         $message->setEvent('participant_signup');
         $message->setClientId($this->participant->id);
         $message->setEmail($this->participant->email);
+        $message->setFirstName($this->participant->first_name);
+        $message->setLastName($this->participant->last_name);
         $message->setExtras([
             'wallet' => $this->participant->wallet,
             'login_url' => route('auth', [

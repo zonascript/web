@@ -18,8 +18,17 @@ $router->get('/', ['as' => 'root', function () use ($router) {
 }]);
 
 $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($router) {
-    $router->get('/token/', ['as' => 'home', function () use ($router) {
-        return view('pages.home');
+    $router->get('/token/', ['as' => 'home', function (\Illuminate\Http\Request $request) use ($router) {
+        $from000 = $request->get('utm_source') === '000' || $request->cookie('utm_source') === '000';
+        $response = response(view('pages.home', ['from000' => $from000])->render());
+
+        if($from000) {
+            $response->withCookie(new \Symfony\Component\HttpFoundation\Cookie(
+                'utm_source', '000', \Carbon\Carbon::now()->addYear()
+            ));
+        }
+
+        return $response;
     }]);
 
     $router->get('/token/mvp', ['as' => 'mvp', function () {
@@ -137,10 +146,15 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($
         $participant->email = $request->get('email');
         $participant->ip = $request->ip();
 
-        $name = $request->get('name', ucwords(str_replace("."," ", explode("@", $request->get('email'))[0])));
+        $name = $request->get('name');
+
+        if(empty($name)) {
+            $name = ucwords(str_replace("."," ", explode("@", $request->get('email'))[0]));
+        }
+
         $nameParts = explode(" ", $name);
 
-        $participant->first_name = $nameParts[0] ?? null;
+        $participant->first_name = $nameParts[0];
         $participant->last_name = count($nameParts) > 1 ? implode(" ", array_slice($nameParts, 1)) : null;
 
         $participant->save();
@@ -149,7 +163,7 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($
 
         event(new \App\Events\FreeTokenSignup($participant, $authToken, $request->segment(1)));
 
-        return response()->json(['success' => true,]);
+        return response()->json(['success' => true]);
     }]);
 
     $router->get('/token/login', ['as' => 'login', function (\Illuminate\Http\Request $request) {
@@ -198,7 +212,7 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($
 
             $authToken->use();
 
-            return redirect(route_lang('home'))->withCookie(
+            return redirect(route_lang('user'))->withCookie(
                 new \Symfony\Component\HttpFoundation\Cookie('auth', $authToken->key, \Carbon\Carbon::now()->addSeconds(\App\AuthToken::TTL), '/')
             );
         }
@@ -264,7 +278,7 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($
         return view('pages.courses.web-developer-landing');
     }]);
 
-    $router->get('/token/user', ['as' => 'user', function () {
+    $router->get('/token/user', ['as' => 'user', 'middleware' => 'auth', function () {
         return view('pages.user');
     }]);
 

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $(function () {
+    jqWait(function () {
         $("form.async-validated").submit(function (e) {
             var form = $(this), inputs = $("input,select,button", form), formData = $(this).serialize();
             e.preventDefault();

@@ -65,6 +65,7 @@ $app->middleware([
 
 $app->routeMiddleware([
     'lang' => App\Http\Middleware\LanguageMiddleware::class,
+    'auth' => App\Http\Middleware\OnlyAuthenticatedMiddleware::class,
 ]);
 
 /*

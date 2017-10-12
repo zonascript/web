@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <img class="token-image" src="{{ asset('token.png') }}" alt="BitDegree EDU Token">
-                        <p>Congratulations, {{ $participant->first_name }}!</p>
+                            <p>Congratulations, {{ $participant->first_name or $participant->email }}!</p>
                             <div class="amount-of-tokens">
                                 <h3>You have</h3>
                                 <h1>1 EDU</h1>

@@ -1442,7 +1442,7 @@ body.login-page.token-secured a.login-logo{
     background:#2f2f2f;
     margin-top: 5px;
     h4{
-      font-family: $work- sans;
+      font-family: $work-sans;
       font-weight: 200;
       font-size:15px;
       color:#fff;
@@ -1978,6 +1978,13 @@ header .header-content {
     line-height: 30px;
     letter-spacing: 1px;
     color: #fff;
+  }
+  .btn-account{
+    color:#fff;
+    border:1px solid #ccc;
+    &:hover{
+      border:1px solid #fff;
+    }
   }
   .communicate .contact {
     text-align: center;

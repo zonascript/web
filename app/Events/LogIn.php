@@ -35,6 +35,8 @@ class LogIn extends Event implements Mailable
     {
         $message = new Simple();
         $message->setEvent('participant_login');
+        $message->setFirstName($this->participant->first_name);
+        $message->setLastName($this->participant->last_name);
         $message->setClientId($this->participant->id);
         $message->setEmail($this->participant->email);
         $message->setExtras([
