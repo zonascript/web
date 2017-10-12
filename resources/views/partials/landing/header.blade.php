@@ -75,13 +75,13 @@
                     <div class="communicate">
                         <div class="contact">
                             @if($authenticated)
-                                <p><strong>Welcome back, {{ $participant->first_name }}!</strong></p>
-                                <p><a class="btn btn-account" href="{{ route_lang('user') }}">My Account</a></p>
+                                <p><strong>@lang('user.welcome_back', ['name' => $participant->first_name ?: $participant->email])</strong></p>
+                                <p><a class="btn btn-account" href="{{ route_lang('user') }}">@lang('user.my_account')</a></p>
                             @else
                                 @if($from000)
                                 <form action="{{ route_lang('signup') }}" method="get">
-                                    <input class="suscribe-input" name="email" type="email" placeholder="Enter your email" required>
-                                    <button type="submit" class="submit">GET FREE TOKENS</button>
+                                    <input class="suscribe-input" name="email" type="email" placeholder="@lang('user.enter_email')" required>
+                                    <button type="submit" class="submit">@lang('home.free_tokens')</button>
                                 </form>
                                 @else
                                     <form action="https://xyz.us16.list-manage.com/subscribe/post?u=528cc9372b916077746636344&amp;id=f79db67249" method="post">

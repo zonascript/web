@@ -187,7 +187,7 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($
             return response()->json(['success' => true]);
         }
 
-        return response()->json(['error' => 'An account with the given email does not exist.'], 422);
+        return response()->json(['error' => trans('user.no_account')], 422);
     }]);
 
     $router->get('/token/logout', ['as' => 'logout', function (\Illuminate\Http\Request $request) {
@@ -218,7 +218,7 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($
         }
 
         return view('pages.notification', [
-            'message' => "Sorry, this link is either invalid or it had already expired. Please try logging in again.",
+            'message' => trans('user.link_expired'),
         ]);
     }]);
 

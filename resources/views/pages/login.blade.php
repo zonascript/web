@@ -7,28 +7,28 @@
             <a href="{{ route_lang('home') }}" class="login-logo">
                 <img class="logo" src="{{ asset('bitdegree-logo.png') }}" alt="BitDegree">
             </a>
-            <h1>Log In</h1>
+            <h1>@lang('user.login')</h1>
             <div id="login-success" style="display: none">
-                <div class="alert alert-success">Your instant log in link has been emailed to you.</div>
-                <a href="{{ route_lang('home') }}" class="back-to-homepage btn btn-default"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to the Home Page</a>
+                <div class="alert alert-success">@lang('user.link_sent')</div>
+                <a href="{{ route_lang('home') }}" class="back-to-homepage btn btn-default"><i class="fa fa-chevron-left" aria-hidden="true"></i> @lang('user.back_home')</a>
             </div>
             <form action="{{ route_lang('login-post') }}" method="post" class="async-validated" data-show="#login-success">
-                <div class="alert alert-danger other-error" style="display: none;">An unknown error occurred. Please make sure you entered correct data and try again.</div>
+                <div class="alert alert-danger other-error" style="display: none;">@lang('user.unknown_error')</div>
                 @if(!empty($email))
-                    <div class="well-sm well">You already have an account at BitDegree! Click <strong>Log In</strong> below to authenticate.</div>
+                    <div class="well-sm well">@lang('user.already_member')</div>
                     <input type="hidden" name="email" value="{{ $email }}">
                 @else
                     <div class="form-group validation-email">
-                        <label for="input-email">Email Address</label>
-                        <input type="email" name="email" class="form-control" placeholder="you@example.com" value="{{ $email }}">
+                        <label for="input-email">@lang('user.email_address')</label>
+                        <input type="email" name="email" class="form-control" placeholder="@lang('user.sample_email')" value="{{ $email }}">
                         <span class="validation-error"></span>
                     </div>
                 @endif
 
                 @include('partials.recaptcha')
 
-                <button class="btn btn-default">Log In</button>
-                <a class="link" href="{{ route_lang('signup') }}">or Sign Up</a>
+                <button class="btn btn-default">@lang('user.login')</button>
+                <a class="link" href="{{ route_lang('signup') }}">@lang('user.or_signup')</a>
             </form>
         </div>
     </div>

@@ -11,16 +11,14 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <img class="token-image" src="{{ asset('token.png') }}" alt="BitDegree EDU Token">
-                            <p>Congratulations, {{ $participant->first_name or $participant->email }}!</p>
+                            <p>@lang('user.congratulations', ['name' => $participant->first_name ? : $participant->email])</p>
                             <div class="amount-of-tokens">
-                                <h3>You have</h3>
-                                <h1>1 EDU</h1>
-                                <h3>Token secured</h3>
+                                @lang('user.tokens_secured', ['number' => 1])
                             </div>
 
                             <div class="col-md-6 col-md-offset-3">
                                 <div class="share">
-                            <h3>Share to get more <b>FREE</b> tokens:</h3>
+                            <h3>@lang('user.share')</h3>
                             <div class="share-arrow"></div>
                             <!-- AddToAny BEGIN -->
                             <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
@@ -47,7 +45,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <p><a class="back-to-homepage btn btn-default" href="{{ route_lang('logout') }}"><i class="fa fa-chevron-left" aria-hidden="true"></i>  Log out</a></p>
+                            <p><a class="back-to-homepage btn btn-default" href="{{ route_lang('logout') }}"><i class="fa fa-chevron-left" aria-hidden="true"></i> @lang('user.logout')</a></p>
                         </div>
                     </div>
                 @endif
