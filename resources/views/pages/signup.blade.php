@@ -7,12 +7,14 @@
             <a href="{{ route_lang('home') }}" class="login-logo">
                 <img class="logo" src="{{ asset('bitdegree-logo.png') }}" alt="BitDegree">
             </a>
-            <h1>Register</h1>
+
             <div id="signup-success" style="display: none">
-                <div class="alert alert-success">You are almost set. Please check the e-mail you provided during registration and click confirmation link in it.</div>
+                <h1>Almost done...</h1>
+                <div class="alert alert-success">You are one step away from securing <b>Your free token</b>. Please check the e-mail you provided during registration and click confirmation link in it.</div>
                 <a href="{{ route_lang('home') }}" class="back-to-homepage btn btn-default"><i class="fa fa-chevron-left" aria-hidden="true"></i> Back to the Home Page</a>
             </div>
             <form class="async-validated" action="{{ route_lang('signup-post') }}" method="post" data-show="#signup-success">
+                <h1>Register</h1>
                 <p class="subtitle">Please provide some info to get Registered to Bitdegree</p>
                 <div class="alert alert-danger other-error" style="display: none;">An unknown error occurred. Please make sure you entered correct data and try again.</div>
                 <div class="form-group validation-email">
