@@ -263,4 +263,8 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($
     $router->get('/landing/course/web-developer', ['as' => 'web-developer', function () {
         return view('pages.courses.web-developer-landing');
     }]);
+
+    $router->get('/token/user', ['as' => 'user', function () {
+        return view('pages.user');
+    }]);
 });
