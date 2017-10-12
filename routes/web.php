@@ -264,6 +264,10 @@ $router->group(['prefix' => '{lang}', 'middleware' => 'lang'], function() use ($
         return view('pages.courses.web-developer-landing');
     }]);
 
+    $router->get('/token/user', ['as' => 'user', function () {
+        return view('pages.user');
+    }]);
+
     $router->get('/landing/course/smart-contract-developer', ['as' => 'smart-contract-developer', function () {
         return view('pages.courses.smart-contract-developer-landing');
     }]);
