@@ -190,7 +190,7 @@
 @push('body-scripts')
     @if($icoDataAvailable && !$showAddress)
         <script type="text/javascript">
-            $(function () {
+            jqWait(function () {
                 $('[data-crowdsale-address]').click(function () {
                     $('#signup-modal').modal('show');
                 });
